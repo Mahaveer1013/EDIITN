@@ -34,6 +34,10 @@ function nextSlide() {
     updateSlide()
 }
 
+setInterval(() => {
+    nextSlide()
+}, 3000);
+
 
 let navLi = document.querySelectorAll('.left-nav-li');
 navLi.forEach(li => {
