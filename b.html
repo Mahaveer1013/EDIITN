@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timetable Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h1 {
+            margin-top: 0;
+            color: #333;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="number"] {
+            width: 100px;
+            margin-bottom: 10px;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .dynamic-box {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .dynamic-box input {
+            margin: 5px;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            transition: transform 0.3s ease;
+        }
+
+        .dynamic-box input:focus {
+            outline: none;
+            border-color: #007bff;
+            transform: scale(1.05);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Timetable Generator</h1>
+        <form id="inputForm">
+            <label for="regularSubjectNames">Number of Regular Subjects:</label>
+            <input type="number" name="regularSubjectNames" oninput="generateInputFields('regularSubjectNames')" id="regularSubjectNames" name="regularSubjects">
+            <div class="regularSubjectNames dynamic-box"></div>
+
+            <label for="labSubjectNames">Number of Lab Subjects:</label>
+            <input type="number" name='labSubjectNames' oninput="generateInputFields('labSubjectNames');" id="labSubjectNames" name="labSubjects">
+            <div class="labSubjectNames dynamic-box"></div>
+
+            <label for="sections">Number of Sections:</label>
+            <input type="number" id="sections" name="sections">
+
+            <button type="button" onclick="generateTimetable()">Generate Timetable</button>
+        </form>
+    </div>
+    <div id="timetable"></div>
+    <!-- <a href="a.html" id="resultLink" style="display: none;">View Result</a> -->
+
+    <script>
+        function generateInputFields(type){
+            let element= document.getElementById(type).value;
+            let body=document.querySelector('.'+type);
+            body.innerHTML='';
+            console.log(body);
+            console.log(element,typeof(element));
+            for(let i=1;i<=parseInt(element);i++){
+                body.innerHTML+=`<input type='text' class='extra-fields' placeholder='Enter subject ${i}' id='${type}-${i}'>`;
+            }
+        }
+
+        function generateTimetable() {
+            const regularSubjectsInput = document.getElementById('regularSubjectNames').value;
+            const labSubjectsInput = document.getElementById('labSubjectNames').value;
+            const sectionsInput = document.getElementById('sections').value;
+            const extraFields=document.querySelectorAll('.extra-fields')
+            extraFields.forEach((field)=>{
+                if (!field){
+                    alert('Please fill in all input fields.');
+                    return;
+                }
+            })
+            if (!regularSubjectsInput && !labSubjectsInput && !sectionsInput) {
+                alert('Please fill in all input fields.');
+                return;
+            }
+
+            const regularSubjectNames = [];
+            for (let i = 1; i <= parseInt(regularSubjectsInput); i++) {
+                const subjectName = document.getElementById('regularSubjectNames-' + i).value.trim();
+                if (subjectName !== "") {
+                    regularSubjectNames.push(subjectName);
+                }
+            }
+
+            const labSubjectNames = [];
+            for (let i = 1; i <= parseInt(labSubjectsInput); i++) {
+                const labSubjectName = document.getElementById('labSubjectNames-' + i).value.trim();
+                if (labSubjectName !== "") {
+                    labSubjectNames.push(labSubjectName);
+                }
+            }
+
+            const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
+            const periods = ['1', '2', '3', '4', '5', '6', '7', '8'];
+
+            const timetable = document.createElement('table');
+
+            const headerRow = document.createElement('tr');
+            const emptyTh = document.createElement('th');
+            emptyTh.textContent = '';
+            headerRow.appendChild(emptyTh);
+            for (const day of days) {
+                const th = document.createElement('th');
+                th.textContent = day;
+                headerRow.appendChild(th);
+            }
+            timetable.appendChild(headerRow);
+
+            for (const period of periods) {
+                const row = document.createElement('tr');
+                const periodTh = document.createElement('th');
+                // Fixing the typo and adding quotes around 'Periods'
+                periodTh.textContent = 'Periods' + period; 
+                row.appendChild(periodTh);
+
+                for (const day of days) {
+                    const td = document.createElement('td');
+                    td.textContent = '';
+                    row.appendChild(td);
+                }
+
+                timetable.appendChild(row);
+            }
+
+
+            const timetableContainer = document.getElementById('timetable');
+            if (timetableContainer) {
+                timetableContainer.innerHTML = '';
+                timetableContainer.appendChild(timetable);
+
+                // const resultLink = document.getElementById('resultLink');
+                // resultLink.click();
+            } else {
+                console.error('Timetable container not found.');
+            }
+        }
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--
+    <script>
+        function generateInputFields(event) {
+            const name=event.target.name;
+            console.log(name);
+            const container = document.getElementById(containerId);
+            container.innerHTML = '';
+            let count=this.value;
+            console.log(count);
+
+            for (let i = 0; i < count; i++) {
+                container.innerHTML+=`<input type='text' placeholder='${label}-${i}' id='${label}-${i}'<br>`;
+            }
+        }
+
+        function generateTimetable() {
+            const regularSubjectsInput = document.getElementById('regularSubjects').value;
+            const labSubjectsInput = document.getElementById('labSubjects').value;
+            const sectionsInput = document.getElementById('sections').value;
+
+            if (!regularSubjectsInput || !labSubjectsInput || !sectionsInput) {
+                alert('Please fill in all input fields.');
+                return;
+            }
+
+            const regularSubjectNames = [];
+            for (let i = 0; i < parseInt(regularSubjectsInput); i++) {
+                const subjectName = document.getElementById(regularSubjectsInput+i).value.trim();
+                if (subjectName !== "") {
+                    regularSubjectNames.push(subjectName);
+                }
+            }
+
+            const labSubjectNames = [];
+            for (let i = 0; i < parseInt(labSubjectsInput); i++) {
+                const labSubjectName = document.getElementById(labSubject+i).value.trim();
+                if (labSubjectName !== "") {
+                    labSubjectNames.push(labSubjectName);
+                }
+            }
+
+            const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
+            const periods = ['1', '2', '3', '4', '5', '6', '7', '8'];
+
+            const timetable = document.createElement('table');
+
+            const headerRow = document.createElement('tr');
+            const emptyTh = document.createElement('th');
+            emptyTh.textContent = '';
+            headerRow.appendChild(emptyTh);
+            for (const day of days) {
+                const th = document.createElement('th');
+                th.textContent = day;
+                headerRow.appendChild(th);
+            }
+            timetable.appendChild(headerRow);
+
+            for (const period of periods) {
+                const row = document.createElement('tr');
+                const periodTh = document.createElement('th');
+                periodTh.textContent = Period+period;
+                row.appendChild(periodTh);
+
+                for (const day of days) {
+                    const td = document.createElement('td');
+                    td.textContent = '';
+                    row.appendChild(td);
+                }
+
+                timetable.appendChild(row);
+            }
+
+            const timetableContainer = document.getElementById('timetable');
+            if (timetableContainer) {
+                timetableContainer.innerHTML = '';
+                timetableContainer.appendChild(timetable);
+
+                const resultLink = document.getElementById('resultLink');
+                resultLink.click();
+            } else {
+                console.error('Timetable container not found.');
+            }
+        }
+
+        // document.addEventListener('DOMContentLoaded', function () {
+        //     const regularSubjectsInput = document.getElementById('regularSubjects');
+        //     const labSubjectsInput = document.getElementById('labSubjects');
+
+        //     if (regularSubjectsInput && labSubjectsInput) {
+        //         regularSubjectsInput.addEventListener('change', function () {
+        //             const count = parseInt(regularSubjectsInput.value);
+        //             generateInputFields('regularSubjectNames', count, 'Subject');
+        //         });
+
+        //         labSubjectsInput.addEventListener('change', function () {
+        //             const count = parseInt(labSubjectsInput.value);
+        //             generateInputFields('labSubjectNames', count, 'Lab Subject');
+        //         });
+        //     } else {
+        //         console.error('One or more input elements not found.');
+        //     }
+        // });
+    </script> 
+-->
+</body>
+</html>

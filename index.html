@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div id="particles-js"></div>
     <div class="sidemenu-nav">
         <div class="sidemenu-top">
             <div class="logo fcc">
@@ -147,32 +148,40 @@
                         <div class="game-img-div fcc">
                             <img src="https://i1.wp.com/androidmag.de/wp-content/uploads/2014/04/memory_game_logos_02.jpg?resize=650%2C569" alt="">
                         </div>
-                        <div class="game-content-div fcc">
-                            <p>Memory Muscle </p>
+                        <div class="game-content-div">
+                            <span>Memory Muscle </span>
+                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis quidem mollitia et obcaecati ducimus sit adipisci </p>
+                            <a href="#">Play</a>
                         </div>
                     </div>
                     <div class="game-div">
                         <div class="game-img-div fcc">
                             <img src="https://th.bing.com/th/id/OIP.uNTFSK4q2KUSoolD6Di_8wAAAA?rs=1&pid=ImgDetMain" alt="">
                         </div>
-                        <div class="game-content-div fcc">
-                            <p>Jelabi </p>
+                        <div class="game-content-div">
+                            <span>Jelabi </span>
+                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis quidem mollitia et obcaecati ducimus sit adipisci </p>
+                            <a href="#">Play</a>
                         </div>
                     </div>
                     <div class="game-div">
                         <div class="game-img-div fcc">
                             <img src="./img/pixlr-image-generator-a1b9334e-92ce-421e-9158-3bc0bcc3b2e6.png" alt="">
                         </div>
-                        <div class="game-content-div fcc">
-                            <p>Sudoku</p>
+                        <div class="game-content-div">
+                            <span>Sudoku</span>
+                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis quidem mollitia et obcaecati ducimus sit adipisci </p>
+                            <a href="#">Play</a>
                         </div>
                     </div>
                     <div class="game-div">
                         <div class="game-img-div fcc">
                             <img src="./img/_b13c97b5-1e31-414f-bf94-f9e820585409.jpeg" alt="">
                         </div>
-                        <div class="game-content-div fcc">
-                            <p>Quiz </p>
+                        <div class="game-content-div">
+                            <span>Quiz </span>
+                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis quidem mollitia et obcaecati ducimus sit adipisci </p>
+                            <a href="#">Play</a>
                         </div>
                     </div>
                 </div>
@@ -185,6 +194,117 @@
         </div>
     </div>
 
+
+
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+      particlesJS("particles-js", {
+        particles: {
+          number: {
+            value: 100,
+            density: {
+              enable: true,
+              value_area: 800,
+            },
+          },
+          color: {
+            value: "#ffffff", // White color for particles
+          },
+          shape: {
+            type: "circle",
+            stroke: {
+              width: 0,
+              color: "#000000",
+            },
+            polygon: {
+              nb_sides: 5,
+            },
+          },
+          opacity: {
+            value: 0.7,
+            random: false,
+            anim: {
+              enable: false,
+              speed: 1,
+              opacity_min: 0.1,
+              sync: false,
+            },
+          },
+          size: {
+            value: 3,
+            random: true,
+            anim: {
+              enable: false,
+              speed: 40,
+              size_min: 0.1,
+              sync: false,
+            },
+          },
+          line_linked: {
+            enable: true,
+            distance: 150,
+            color: "#ffff00",
+            opacity: .8,
+            width: 1,
+          },
+          move: {
+            enable: true,
+            speed: 6,
+            direction: "none",
+            random: false,
+            straight: false,
+            out_mode: "out",
+            bounce: false,
+            attract: {
+              enable: false,
+              rotateX: 600,
+              rotateY: 1200,
+            },
+          },
+        },
+        interactivity: {
+          detect_on: "canvas",
+          events: {
+            onhover: {
+              enable: true,
+              mode: "repulse",
+            },
+            onclick: {
+              enable: true,
+              mode: "push",
+            },
+            resize: true,
+          },
+          modes: {
+            grab: {
+              distance: 400,
+              line_linked: {
+                opacity: 1,
+              },
+            },
+            bubble: {
+              distance: 400,
+              size: 40,
+              duration: 2,
+              opacity: 8,
+              speed: 3,
+            },
+            repulse: {
+              distance: 200,
+              duration: 0.4,
+            },
+            push: {
+              particles_nb: 4,
+            },
+            remove: {
+              particles_nb: 2,
+            },
+          },
+        },
+        retina_detect: true,
+      });
+    </script>
     <script src="script.js"></script>
 </body>
 </html>
