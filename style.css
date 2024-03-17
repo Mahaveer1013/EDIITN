@@ -108,11 +108,17 @@ canvas {
 }
 .main-subnav{
     width: 1000px;
+    overflow-x: auto;
+    justify-content: start;
+    /* min-width: 600px; */
+}
+.sub-subnav{
+    display: none;
 }
 .subnav{
     display: flex;
-    /* gap: 20px; */
-    /* justify-content: space-around; */
+    min-width: 600px;
+    /* text-decoration : ; */
     width: 100%;
 }
 .subnav li{
@@ -483,6 +489,7 @@ canvas {
     }
     .game-lists{
         width: 100%;
+        gap: 10px;
     }
     .game-div{
         width: 100%;
