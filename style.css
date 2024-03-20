@@ -39,6 +39,16 @@ canvas {
     font-size: 20px;
     font-weight: 500;
 }
+
+
+
+
+
+
+
+
+
+
 .header{
     position: fixed;
     z-index: 100;
@@ -99,6 +109,15 @@ canvas {
     height: 40px;
 }
 
+
+
+
+
+
+
+
+
+
 /* container */
 
 .container{
@@ -117,7 +136,7 @@ canvas {
 }
 .subnav{
     display: flex;
-    min-width: 600px;
+    /* min-width: 600px; */
     /* text-decoration : ; */
     width: 100%;
 }
@@ -139,7 +158,14 @@ canvas {
 
 .slider-div{
     width: 100%;
+    flex-direction: column;
     height: 300px;
+}
+.slider-title{
+    width: 1000px;
+    margin-bottom: 10px;
+    font-size: large;
+    font-weight: 500;
 }
 .slider{
     display: flex;
@@ -331,7 +357,7 @@ canvas {
 
 
 @media all and (max-width:1024px) {
-    .slider-div{
+    .slider-div.slider-title,.slider-title{
         max-width: 800px;
     }
     .slider{
@@ -385,7 +411,7 @@ canvas {
     .sidemenu{
         display: flex;
     }
-    .slider-div{
+    .slider-div.slider-title{
         max-width: 500px;
         height: auto;
         margin-top: 100px;
