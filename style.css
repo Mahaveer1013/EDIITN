@@ -142,7 +142,8 @@ canvas {
 }
 .subnav li{
     cursor: pointer;
-    color: #000;
+    text-decoration: underline;
+    color: #003a00;
     font-weight: 500;
     list-style: none;
     border-radius: 5px;
